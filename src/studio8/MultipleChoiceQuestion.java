@@ -1,41 +1,59 @@
 package studio8;
 
-import support.cse131.NotYetImplementedException;
-
 public class MultipleChoiceQuestion extends Question {
+
+	// Instance variable for the list of answer choices
+	private String[] choices;
 
 	/**
 	 * Constructor
-	 * @param prompt
-	 * @param answer
-	 * @param points
-	 * @param choices
+	 * 
+	 * @param prompt  the question text
+	 * @param answer  the correct answer
+	 * @param points  number of points this question is worth
+	 * @param choices an array of possible answers
 	 */
 	public MultipleChoiceQuestion(String prompt, String answer, int points, String[] choices) {
-		// Call the super class constructor, then create and set
-		// instance variables for any values that aren't handled
-		// by the base class
-		throw new NotYetImplementedException();
+		// Call the superclass constructor for shared fields
+		super(prompt, answer, points);
+		// Handle the new field for multiple choice options
+		this.choices = choices;
 	}
-	
+
 	/**
-	 * Display the prompt for the question in addition to 
-	 * the choices present for the question.
+	 * Display the prompt and the list of choices.
 	 */
+	@Override
 	public void displayPrompt() {
-		throw new NotYetImplementedException();
+		// Display the question and points from the superclass
+		super.displayPrompt();
+		// Display each choice with a label number
+		for (int i = 0; i < choices.length; i++) {
+			System.out.println((i + 1) + ". " + choices[i]);
+		}
 	}
-	
+
 	/**
-	 * Getter method for the available choices
+	 * Getter for choices
+	 * 
 	 * @return String[] of choices
 	 */
 	public String[] getChoices() {
-		throw new NotYetImplementedException();
-	}
-	
-	public static void main(String[] args) {
-		// TODO: create your own MultipleChoiceQuestion
+		return this.choices;
 	}
 
+	public static void main(String[] args) {
+		// Create and test a MultipleChoiceQuestion
+		String[] options = { "131", "231", "425", "1301" };
+
+		MultipleChoiceQuestion mcq = new MultipleChoiceQuestion(
+				"Which course is the introduction to Computer Science at WashU?",
+				"131",
+				5,
+				options);
+
+		mcq.displayPrompt();
+		System.out.println("Answer check (131): " + mcq.checkAnswer("131")); // Should print 5
+		System.out.println("Answer check (425): " + mcq.checkAnswer("425")); // Should print 0
+	}
 }
